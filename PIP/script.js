@@ -20,6 +20,7 @@ async function selectMediaStream(){
 boton.addEventListener('click', async () => {
     selectMediaStream();
     videoElement.hidden = false;
+    boton.hidden = true;
     boton.disabled = true;
 
     await videoElement.requestPictureInPicture();
