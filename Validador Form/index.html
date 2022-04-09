@@ -1,15 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Script -->
-    <script src="script.js"></script>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Validador de Form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Registrate ahora</h1>
+            <form id="form">
+                <!-- Nombre completo -->
+                <div class="form-group">
+                    <label for="name">Nombre Completo</label>
+                    <input type="text" id="name" placeholder="Nombre Completo">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefono</label>
+                    <input type="tel" id="phone" placeholder="11-4026-2461">
+                </div>
+                <!-- correo -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="correo@direccion.com">
+                </div>
+                <div class="form-group">
+                    <label for="website">Pagina Web</label>
+                    <input type="url" id="website" placeholder="https://www.google.com.ar">
+                </div>
+                <div class="form-group">
+                    <label for="password1">Contraseña</label>
+                    <input type="password" id="password1" placeholder="Crear Contraseña">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirmar Contraseña</label>
+                    <input type="password" id="password2" placeholder="confirmar Contraseña">
+                </div>
+                <button type="submit">Registrarse</button>
+            </form>
+            <!-- error/ok mensaje -->
+            <div class="message-container">
+                <h3 id="message">No tengas miedo</h3>
+            </div>
+        </div>
+
+    <!--Script -->
+    <script src="./script.js" async defer></script>
+    </body>
 </html>
