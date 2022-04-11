@@ -10,32 +10,39 @@
     <body>
         <div class="container">
             <h1>Registrate ahora</h1>
-            <form id="form">
+            <form id="form" >
                 <!-- Nombre completo -->
                 <div class="form-group">
                     <label for="name">Nombre Completo</label>
-                    <input type="text" id="name" placeholder="Nombre Completo">
+                    <input type="text" id="name" placeholder="Nombre Completo" name="name"
+                    required min-lenght="3" maxlength="100">
                 </div>
                 <div class="form-group">
                     <label for="phone">Telefono</label>
-                    <input type="tel" id="phone" placeholder="11-4026-2461">
+                    <input type="tel" id="phone" placeholder="11-4026-2461" name="phone"
+                    required pattern="[0-9]{2}-[0-9]{4}-[0-9]{4}">
                 </div>
                 <!-- correo -->
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="correo@direccion.com">
+                    <input type="email" id="email" placeholder="correo@direccion.com" name="email"
+                    required>
                 </div>
                 <div class="form-group">
                     <label for="website">Pagina Web</label>
-                    <input type="url" id="website" placeholder="https://www.google.com.ar">
+                    <input type="url" id="website" placeholder="https://www.google.com.ar" name="website"
+                    required>
                 </div>
                 <div class="form-group">
                     <label for="password1">Contraseña</label>
-                    <input type="password" id="password1" placeholder="Crear Contraseña">
+                    <input type="password" id="password1" placeholder="Crear Contraseña (Min. 8 Caracteres)"
+                    required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+                    title="Por favor incluir al menos una Mayuscula, una minuscula y un numero">
                 </div>
                 <div class="form-group">
                     <label for="password2">Confirmar Contraseña</label>
-                    <input type="password" id="password2" placeholder="confirmar Contraseña">
+                    <input type="password" id="password2" placeholder="Confirmar Contraseña" name="password"
+                    required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$">
                 </div>
                 <button type="submit">Registrarse</button>
             </form>
