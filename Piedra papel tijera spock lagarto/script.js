@@ -1,8 +1,10 @@
+import {startConfetti,stopConfetti,removeConfetti} from './confetti.js';
+
 const playerScoreEl = document.getElementById('playerScore');
 const playerChoiceEl = document.getElementById('playerChoice');
 const computerScoreEl = document.getElementById('computerScore');
 const computerChoiceEl = document.getElementById('computerChoice');
-const resultText = document.getElementById('result');
+const resultText = document.getElementById('resultText');
 
 const playerRock = document.getElementById('playerRock');
 const playerPaper = document.getElementById('playerPaper');
@@ -25,18 +27,109 @@ const choices = {
   lizard: { name: 'Lizard', defeats: ['paper', 'spock'] },
   spock: { name: 'Spock', defeats: ['scissors', 'rock'] },
 };
+let playerScoreNumber = 0;
+let computerScoreNumber = 0;
+let computerChoice = '';
 
 // Reset todos los iconos seleccionados
 function resetSelected(){
   allGameIcons.forEach((icon) => {
     icon.classList.remove('selected');
   });
+  stopConfetti();
+  removeConfetti();
 }
+
+function resetAll(){
+  playerScoreNumber = 0;
+  computerScoreNumber = 0;
+  playerScoreEl.textContent = playerScoreNumber;
+  computerScoreEl.textContent = computerScoreNumber;
+  playerChoiceEl.textContent = '';
+  computerChoiceEl.textContent = '';
+  resultText.textContent = '';
+  resetSelected();
+  
+}
+
+window.resetAll = resetAll;
+
+function computerRandomChoice(){
+  const computerChoiceNumber = Math.random();
+  if(computerChoiceNumber < 0.2){
+    computerChoice ='rock';
+  }else if(computerChoiceNumber <= 0.4){
+    computerChoice = 'paper';
+  }else if(computerChoiceNumber <= 0.6){
+    computerChoice = 'scissors';
+  }else if (computerChoiceNumber <= 0.8){
+    computerChoice = 'lizard'
+  }else{
+    computerChoice = 'spock';
+  } 
+}
+
+function updateScore(playerChoice){
+  if(playerChoice === computerChoice){
+    resultText.textContent = 'Es un empate';
+  } else{
+    const choice = choices[playerChoice];
+    if(choice.defeats.indexOf(computerChoice) > -1){
+      resultText.textContent ="Ganaste";
+      playerScoreNumber++;
+      playerScoreEl.textContent = playerScoreNumber;
+      startConfetti();
+    }else{
+      resultText.textContent ="Perdiste";
+      computerScoreNumber++;
+      computerScoreEl.textContent = computerScoreNumber;
+    }
+  }
+}
+
+
+function checkResult(playerChoice){
+  resetSelected();
+  computerRandomChoice();
+  displayComputerChoice();
+  updateScore(playerChoice);
+}
+
+//selected computer eleccion
+function displayComputerChoice(){
+  // agregar style 
+  switch(computerChoice){
+    case 'rock':
+      computerRock.classList.add('selected');
+      computerChoiceEl.textContent =' --- Piedra';
+      break;
+    case 'paper':
+        computerPaper.classList.add('selected');
+        computerChoiceEl.textContent =' --- Papel';
+        break;
+    case 'scissors':
+      computerScissors.classList.add('selected');
+      computerChoiceEl.textContent =' --- Tijera';
+      break;
+    case 'lizard':
+      computerLizard.classList.add('selected');
+      computerChoiceEl.textContent =' --- Lagarto';
+      break;
+    case 'spock':
+      computerSpock.classList.add('selected');
+      computerChoiceEl.textContent =' --- Spock';
+      break;
+    default:
+      break;
+    
+  }
+}
+
 
 // pasando player seleccion
 
 function select(playerChoice){
-  resetSelected();
+  checkResult(playerChoice);
   // agregar style 
   switch(playerChoice){
     case 'rock':
@@ -64,4 +157,7 @@ function select(playerChoice){
     
   }
 }
+window.select = select;
+//reinicia los valores apenas carga la pagina
+resetAll();
 
