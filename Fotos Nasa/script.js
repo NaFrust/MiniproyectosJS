@@ -2,16 +2,31 @@ const resultsNav = document.getElementById('resultsNav');
 const favoritesNav = document.getElementById('favoritesNav');
 const imagesContainer = document.querySelector('.images-container');
 const saveConfirmed = document.querySelector('.save-confirmed');
-const loader = document.querySelector('loader');
+const loader = document.querySelector('.loader');
 // NASA API
 const count = 10;
 const apiKey = 'DEMO_KEY'
 const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=${count}`;
 
 let resultsArray = [];
+let favorites = {};
 
-function updateDOM(){
-    resultsArray.forEach((result) =>{
+function showContent(page){
+    window.scrollTo({top: 0, behavior: 'instant',});
+    if(page === 'results'){
+        resultsNav.classList.remove('hidden');
+        favoritesNav.classList.add('hidden');
+    }else{
+        resultsNav.classList.add('hidden');
+        favoritesNav.classList.remove('hidden');
+         
+    }
+    loader.classList.add('hidden');
+}
+
+function createDomNodes(page){
+    const currentArray = page === 'results' ? resultsArray : Object.values(favorites);
+    currentArray.forEach((result) =>{
         // card container
         const card = document.createElement('div');
         card.classList.add('card');
@@ -36,7 +51,13 @@ function updateDOM(){
         // Guardar en favoritos
         const saveText = document.createElement('p');
         saveText.classList.add('clickable');
-        saveText.textContent = 'Agregar a Favoritos'
+        if(page === 'results'){
+            saveText.textContent = 'Agregar a Favoritos';
+        saveText.setAttribute('onClick', `saveFavorite('${result.url}')`);
+        }else{
+            saveText.textContent = 'Borrar de Favoritos';
+        saveText.setAttribute('onClick', `removeFavorite('${result.url}')`);
+        }
         // Card texto
         const cardText = document.createElement('p');
         cardText.textContent = result.explanation;
@@ -47,8 +68,9 @@ function updateDOM(){
         const date = document.createElement('strong');
         date.textContent = result.date;
         // copyright
+        const copyrightResult = result.copyright === undefined ? '' : result.copyright;
         const copyright = document.createElement('span');
-        copyright.textContent = ` ${result.copyright}`;
+        copyright.textContent = ` ${copyrightResult}`;
         // juntarlos
         footer.append(date,copyright);
         cardBody.append(cardTitle, saveText, cardText, footer);
@@ -57,16 +79,53 @@ function updateDOM(){
         imagesContainer.appendChild(card);
     });
 }
+function updateDOM(page){
+    // obtener favoritos desde local storage
+    if(localStorage.getItem('nasaFavorites')){
+        favorites = JSON.parse(localStorage.getItem('nasaFavorites'));   
+    }
+    imagesContainer.textContent = '';
+    createDomNodes(page);
+    showContent(page);
+
+}
 
 // obtener 10 imagenes de NASA API
 async function getNasaPictures(){
+    // show loader
+    loader.classList.remove('hidden');
     try {
         const response = await fetch(apiUrl);
         resultsArray = await response.json();
-        console.log(resultsArray);
-        updateDOM();
+        updateDOM('results');
     } catch (error) {
         alert(error);
+    }
+}
+
+// agregar a favoritos
+function saveFavorite(itemUrl){
+    // Loop por el array para seleccionar favorito
+    resultsArray.forEach((item) =>{
+        if(item.url.includes(itemUrl) && !favorites[itemUrl]){
+            favorites[itemUrl] = item;
+            // mostrar confirmacion
+            saveConfirmed.hidden = false;
+            setTimeout(()=>{
+                saveConfirmed.hidden = true;
+            }, 2000);
+            // 
+            localStorage.setItem('nasaFavorites',JSON.stringify(favorites));
+        }
+    });
+}
+// borra de favoritos
+function removeFavorite(itemUrl){
+    if(favorites[itemUrl]){
+        delete favorites[itemUrl];
+        localStorage.setItem('nasaFavorites',JSON.stringify(favorites));
+        updateDOM('favorites');
+
     }
 }
 
