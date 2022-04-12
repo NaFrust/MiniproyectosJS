@@ -14,7 +14,7 @@
 body {
   margin: 0;
   font-family: PT Mono, sans-serif;
-  overflow: scroll;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -26,7 +26,7 @@ body {
   border: 1px solid black;
   box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.5);
   width: 530px;
-  height: 750px;
+  height: 550px;
   position: relative;
   background: rgba(255, 255, 255, 0.5);
   user-select: none;
@@ -64,7 +64,6 @@ input[type="radio"] {
 
 .selection-container {
   position: relative;
-  top: 65px;
 }
 
 .radio-container {
@@ -109,7 +108,7 @@ label {
 }
 
 .selection-footer {
-  top: 134px;
+  top: 0px;
 }
 
 /* Game Page -------------------------- */
@@ -128,6 +127,7 @@ label {
   overflow-y: scroll;
   position: relative;
   -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .item-container::-webkit-scrollbar {
@@ -159,7 +159,7 @@ label {
 .item-footer,
 .selection-footer {
   width: 100%;
-  height: 90px;
+  height: 70px;
   background: rgba(0, 0, 0, 1);
   display: flex;
   justify-content: center;
@@ -212,7 +212,7 @@ button:active {
 
 /* Countdown Page ---------------------- */
 .countdown {
-  margin-top: 45%;
+  margin-top: 30%;
   font-size: 100px;
   text-align: center;
   user-select: none;
@@ -221,10 +221,9 @@ button:active {
 
 /* Score Page ------------------------- */
 .score-container {
-  height: 600px;
+  height: 450px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -248,7 +247,7 @@ button:active {
 }
 
 .base-time {
-  margin-top: 100px;
+  margin-top: 40px;
   margin-bottom: 0;
 }
 

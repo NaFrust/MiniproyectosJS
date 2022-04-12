@@ -15,7 +15,7 @@
         </div>
 
         <!-- Pagina Splash -->
-        <div class="card" id="splash-page" hidden>
+        <div class="card" id="splash-page" >
             <form id="start-form">
                 <div class="selection-container">
                     <!-- 10 preguntas Input -->
@@ -46,7 +46,7 @@
                         </span>
                     </div>
                     <!-- 99 preguntas Input -->
-                    <div class="radio-container selected-label">
+                    <div class="radio-container ">
                         <label for="value-99">99 Preguntas</label>
                         <input type="radio" name="questions" value="99" id="value-99">
                         <span class="best-score">
@@ -62,8 +62,35 @@
             </form>
         </div>
         <!--  cuenta regresiva Page-->
-        <div class="card" id="countdown-page">
-            <h1 class="countdown">3</h1>
+        <div class="card" id="countdown-page" hidden>
+            <h1 class="countdown"></h1>
+        </div>
+        <!-- Page Juego -->
+        <div class="card" id="game-page" hidden>
+            <!-- item container -->
+            <div class="item-container" >
+               
+                <div class="item-footer">
+                    <button class="wrong">Incorrecto</button>
+                    <button class="right">Correcto</button>
+                </div>
+                
+            </div>
+          
+        </div>
+        <!-- Pagina puntajes -->
+        <div class="card" id="score-page"hidden
+            <!-- container puntaje -->
+            <div class="score-container">
+                <h1 class="title">Tu tiempo</h1>
+                <h1 class="final-time">3.4s</h1>
+                <h1 class="base-time">Tiempo Base: 2.1s</h1>
+                <h1 class="penalty-time">Penalizacion: 1.3s</h1>
+            </div>
+            <!-- jugar devuelta -->
+            <div class="score-footer">
+                <button class="play-again">Jugar Devuelta</button>
+            </div>
         </div>
     </div>
     <!-- Script -->
